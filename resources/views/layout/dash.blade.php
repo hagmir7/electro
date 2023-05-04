@@ -34,7 +34,7 @@
           </li>
           <li>
             <a href="/contact/list" class="nav-link text-white @if(request()->path() == 'contact/list') active @endif">
-              Contact
+              Reclamation
             </a>
           </li>
           <li>
@@ -56,7 +56,7 @@
 
           <li>
             <a href="{{ route('register')}}" class="nav-link text-white @if(request()->path() == 'user/register') active @endif">
-              Nouveau Admin
+              Ajouter Admin
             </a>
           </li>
 
@@ -73,7 +73,7 @@
             <strong>{{auth()->user()->first_name }} {{auth()->user()->last_name }}</strong>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" href="{{ route('register') }}">Nouveau Admin</a></li>
+            <li><a class="dropdown-item" href="{{ route('register') }}">Ajouter Admin</a></li>
             <li><a class="dropdown-item" href="{{ route('user.list') }}">Lists admins</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{ route('logout') }}">Deconexion</a></li>

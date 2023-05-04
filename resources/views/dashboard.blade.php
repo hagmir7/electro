@@ -11,7 +11,7 @@
         <h4>{{$clients}}</h4>
     </div>
     <div class="col-md-3 card p-3">
-        <h5>Contacts</h5>
+        <h5>Reclamation</h5>
         <h4>{{$contacts}}</h4>
     </div>
     <div class="col-md-3 card p-3">
