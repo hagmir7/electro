@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContratEController;
 use App\Http\Controllers\ContratOController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Models\Agence;
 use App\Models\Client;
@@ -30,6 +31,12 @@ Route::get('/', function () {
 
 Route::get('/payment', function () {
     return view('payment');
+});
+
+
+Route::prefix('/product')->group(function () {
+    Route::get('create', [ProductController::class, 'create'])->name('product.create');
+    Route::post('store', [ProductController::class, 'store'])->name('product.store');
 });
 
 

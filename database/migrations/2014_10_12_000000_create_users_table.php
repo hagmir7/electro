@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
+            $table->string('avatar')->default('/avatars/avatar.png');
+            $table->string('address')->nullable();
+            $table->text('bio')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -26,10 +29,10 @@ return new class extends Migration
         });
 
         User::create([
-            'first_name' => 'Bilal',
-            'last_name' => "Bilal",
-            'email' => 'bilal@gmail.com',
-            "password" => Hash::make('bilal123'),
+            'first_name' => 'mery',
+            'last_name' => "shop",
+            'email' => 'mery@gmail.com',
+            "password" => Hash::make('mery123'),
             "token" => Str::random(40),
         ]);
     }
