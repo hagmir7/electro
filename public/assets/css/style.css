@@ -350,3 +350,112 @@ h6,
 .footer .copyright a:hover {
     color: var(--dark);
 }
+
+.item {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .item-description {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    max-width: 200px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .item:hover .item-description {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .item-description::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #007bff transparent;
+  }
+
+
+  /* Checkbox custom css */
+  .form-check-input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.form-check-label {
+    position: relative;
+    cursor: pointer;
+    display: block!important;
+}
+
+.form-check-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 85%;
+    height: 1.5em;
+    border: 1px solid #999;
+    background-color: #fff;
+}
+
+.form-check-input:checked + .form-check-label::before {
+    content: "\2713";
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+
+.bg-best {
+        background-image: radial-gradient(circle at 51% 34%, #f0f8ff 0,#bde0ff 100%);
+}
+
+
+
+
+
+
+.thumb-wrapper {
+    padding: 25px 15px;
+    background: #fff;
+    border-radius: 6px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.img-box {
+    height: 120px;
+    margin-bottom: 20px;
+    width: 100%;
+    position: relative;
+}
+
+.img-box img {
+    max-width: 100%;
+    max-height: 100%;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}

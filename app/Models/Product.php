@@ -16,22 +16,23 @@ class Product extends Model
 
 
     public function colors(){
-        return $this->hasMany(Color::class, 'color');
+        return $this->belongsToMany(Color::class, 'product_colors');
     }
 
     public function sizes(){
-        return $this->hasMany(Size::class, 'size');
+        return $this->belongsToMany(Size::class, 'product_sizes');
     }
 
     public function images(){
-        return $this->hasMany(ProductImages::class);
+        return $this->hasMany(ProductImages::class, 'product');
     }
 
     public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function category(){
-        return $this->belongsTo(Category::class);
+    public function caty(){
+        return $this->belongsTo(Category::class, 'category');
     }
+
 }

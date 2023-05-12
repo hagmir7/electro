@@ -54,8 +54,8 @@
                     </select>
                     @error('color') <span class="text-danger">{{$message}}</span> <br>@enderror
 
-                    <label for="size[]">Select Sizes</label>
-                    <select name="size" class="form-select mb-2" multiple>
+                    <label for="size">Select Sizes</label>
+                    <select name="size[]" class="form-select mb-2" multiple>
                         @foreach ($sizes as $size)
                         <option value="{{ $size->id }}">{{ $size->size }}</option>
                         @endforeach

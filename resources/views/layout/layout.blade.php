@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>CryptoCoin - Free Cryptocurrency Website Template</title>
+    <title>Mery Shop - Free Cryptocurrency Website Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -33,16 +33,18 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+
 </head>
 
 
 
 <style>
-    .card iframe{width: 100%}
+    .card iframe{width: 100%};
+    
 </style>
 
 
-<body>
+<body class="bg-light">
     <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -62,19 +64,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-4 py-lg-0">
-                <a href="/" class="nav-item nav-link active">Accueil</a>
-                <a href="/payment" class="nav-item nav-link">Paiement</a>
-                <a href="/agence" class="nav-item nav-link">Agence en Ligne</a>
-                <a href="/contact" class="nav-item nav-link">Espace Client</a>
+                <a href="/" class="nav-item nav-link active">Home</a>
+                <a href="/product/list" class="nav-item nav-link">Products</a>
+                <a href="/category/list" class="nav-item nav-link">Categories</a>
+                <a href="/contact" class="nav-item nav-link">Contact Us</a>
             </div>
+            @auth
+            <div class="d-flex">
+                <a class="btn btn-square rounded-circle me-1" href="https://www.twitter.com/meryshop" target="_blank"><i class="fab fa-bag"></i></a>
+                <a class="btn btn-square rounded-circle me-1" href="https://www.facebook.com/meryshop" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-square rounded-circle me-1" href="https://www.youtube.com/meryshop" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a class="btn btn-square rounded-circle me-1" href="https://www.instagram.com/meryshop" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            @endauth
+
+            @unless (Auth::check())
             <div class="h-100 d-lg-inline-flex align-items-center d-none">
-                <a class="btn btn-square rounded-circle bg-light text-primary me-2" href="https://www.facebook.com/Radeef-%D8%A7%D9%84%D9%88%D9%83%D8%A7%D9%84%D8%A9-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%82%D9%84%D8%A9-%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D8%B9%D9%8A%D8%A9-%D9%84%D8%AA%D9%88%D8%B2%D9%8A%D8%B9-%D8%A7%D9%84%D9%85%D8%A7%D8%A1-%D9%88%D8%A7%D9%84%D9%83%D9%87%D8%B1%D8%A8%D8%A7%D8%A1-%D8%A8%D9%81%D8%A7%D8%B3-100712798521144">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a class="btn btn-square rounded-circle bg-light text-primary me-2" href="https://www.youtube.com/channel/UCRIqvTacwFNh3QR294WEoqQ">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
+                <a href="{{ route('register') }}" class="btn btn-primary mx-1">Register</a>
+                <a href="{{ route('login') }}" class="btn btn-outline-primary mx-1">Login</a>
+            </div> 
+            @endunless
+
         </div>
     </nav>
     <!-- Navbar End -->
@@ -86,45 +96,64 @@
 
 
     <!-- Footer Start -->
-    <div class="container-fluid bg-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid bg-light footer mt-5 pt-5 wow fadeIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-md-6">
-                    <h1 class="text-primary mb-4"><img class="img-fluid me-2" src="/assets/img/icon-1.png" alt="" style="width: 45px;">RADEEF</h1>
-                    <span>
-                        La RADEEF a été créée par délibération du conseil municipal de la ville de Fès en date du 30 avril et 29 août 1969 en vertu du Dahir n° 1.59.315 du 23 Juin 1960 relatif à l’Organisation communale, et ce après l’expiration du contrat de concession dont bénéficiait la Compagnie Fassie d’Electricité (CFE) au titre de la distribution de l’énergie électrique.
-                    </span>
+                    <h1 class="text-primary mb-4"><img class="img-fluid me-2" src="img/icon-1.png" alt="" style="width: 45px;">MeryShop</h1>
+                    <span>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed
+                        stet lorem sit clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum
+                        et lorem et sit.</span>
                 </div>
-                <div class=" col-md-3">
-                    <h5 class="mb-4">Liens rapides</h5>
-                    <a class="btn btn-link" href="/">Accueil</a>
-                    <a class="btn btn-link" href="/payment">Paiement</a>
-                    <a class="btn btn-link" href="/agence">Agence en Ligne</a>
-                    <a class="btn btn-link" href="/contact">Espace Client</a>
-                </div>
-                <div class="col-md-3">
-                    <h5 class="mb-4">Suivez-nous</h5>
-                    <div class="d-flex">
-                        <a class="btn btn-square rounded-circle me-1" href="https://www.youtube.com/channel/UCRIqvTacwFNh3QR294WEoqQ"><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square rounded-circle me-1" href="https://www.facebook.com/Radeef-%D8%A7%D9%84%D9%88%D9%83%D8%A7%D9%84%D8%A9-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%82%D9%84%D8%A9-%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D8%B9%D9%8A%D8%A9-%D9%84%D8%AA%D9%88%D8%B2%D9%8A%D8%B9-%D8%A7%D9%84%D9%85%D8%A7%D8%A1-%D9%88%D8%A7%D9%84%D9%83%D9%87%D8%B1%D8%A8%D8%A7%D8%A1-%D8%A8%D9%81%D8%A7%D8%B3-100712798521144"><i class="fab fa-facebook-f"></i></a>
+                <div class="col-md-6">
+                    <h5 class="mb-4">Offers News</h5>
+                    <p>Clita erat ipsum et lorem et sit, sed stet lorem sit clita.</p>
+                    <div class="position-relative">
+                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
                     </div>
                 </div>
-               
-
-        
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-4">Get In Touch</h5>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, Fes, Morocco</p>
+                    <p><i class="fa fa-phone-alt me-3"></i>+212 4968544</p>
+                    <p><i class="fa fa-envelope me-3"></i>contact@meryshp.store</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-4">Our Categories</h5>
+                    <a class="btn btn-link" href="">Currency Wallet</a>
+                    <a class="btn btn-link" href="">Currency Transaction</a>
+                    <a class="btn btn-link" href="">Bitcoin Investment</a>
+                    <a class="btn btn-link" href="">Token Sale</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-4">Quick Links</h5>
+                    <a class="btn btn-link" href="/about">About Us</a>
+                    <a class="btn btn-link" href="/contact">Contact Us</a>
+                    <a class="btn btn-link" href="/servicess">Our Services</a>
+                    <a class="btn btn-link" href="tearms">Terms &amp; Condition</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-4">Follow Us</h5>
+                    <div class="d-flex">
+                        <a class="btn btn-square rounded-circle me-1" href="https://www.twitter.com/meryshop" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-square rounded-circle me-1" href="https://www.facebook.com/meryshop" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square rounded-circle me-1" href="https://www.youtube.com/meryshop" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-square rounded-circle me-1" href="https://www.instagram.com/meryshop" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="container-fluid copyright">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                     Bilal
+                        © <a href="/">MeryShop</a>, All Right Reserved.
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Footer End -->
 
 
     <!-- Back to Top -->
@@ -156,7 +185,6 @@
         })
     </script>
     @endif
-
 
 </body>
 

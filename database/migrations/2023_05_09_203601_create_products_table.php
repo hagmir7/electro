@@ -1,9 +1,6 @@
 <?php
 
 use App\Models\Category;
-use App\Models\Color;
-use App\Models\ProductImages;
-use App\Models\Size;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -26,8 +23,6 @@ return new class extends Migration
             $table->boolean('status')->default(true);
             $table->foreignIdFor(User::class, 'user');
             $table->foreignIdFor(Category::class, 'category'); // belongs to on category
-            $table->foreignIdFor(Size::class, 'size')->nullable(); // has many Sizes
-            $table->foreignIdFor(Color::class, 'color')->nullable();
             $table->timestamps();
         });
     }
