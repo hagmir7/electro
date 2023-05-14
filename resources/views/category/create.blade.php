@@ -15,17 +15,14 @@
                 @endforeach
 
                 @endif
-                <form action="{{ route('category.update.store', $category->id ) }}" method="POST" enctype="multipart/form-data">
-                    @method("PUT")
+                <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <label for="name">Name</label>
-                    <input type="text" name="name" value="{{ $category->name }}" class="form-control mb-2" placeholder="Product name...">
+                    <input type="text" name="name" value="{{@old('name')}}" class="form-control mb-2" placeholder="Product name...">
                     @error('name') <span class="text-danger">{{$message}}</span> <br>@enderror
                     <label for="images">Images</label>
                     <input type="file" accept="image/*" class="form-control mb-2" name="image">
                     @error('images') <span class="text-danger">{{$message}}</span> <br>@enderror
-                    <img src="{{ $category->image }}" class="my-2" width="60px" alt="{{ $category->name }}">
-
                     <button class="btn btn-primary w-100">Create Category</button>
                 </form>
             </div>

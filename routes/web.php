@@ -37,7 +37,8 @@ Route::get('/', function () {
 Route::prefix('/product')->group(function () {
     Route::get('create', [ProductController::class, 'create'])->name('product.create');
     Route::post('store', [ProductController::class, 'store'])->name('product.store');
-    Route::get('list', [ProductController::class, 'list'])->name('porduct.list');
+    Route::get('list', [ProductController::class, 'list'])->name('product.list');
+    Route::get('list/admin', [ProductController::class, 'listAdmin'])->name('product.list.admin');
     Route::get('update/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::get('{product}', [ProductController::class, 'product'])->name('product');
     Route::put('update/store/{product}', [ProductController::class, 'updateStore'])->name('product.update.store');
@@ -87,13 +88,13 @@ Route::prefix('/user')->group(function(){
 
 
 Route::prefix('/category')->group(function(){
+    Route::get('create', [CategoryController::class, 'create'])->name('category.create')->middleware('auth');
     Route::get('list', [CategoryController::class, 'list'])->name('category.list');
     Route::get('{category}', [CategoryController::class, 'category'])->name('category');
-    Route::get('list/admin', [CategoryController::class, 'list'])->name('category.list.admin')->middleware('auth');
-    Route::get('create', [CategoryController::class, 'create'])->name('category.create')->middleware('auth');
+    Route::get('list/admin', [CategoryController::class, 'listAdmin'])->name('category.list.admin')->middleware('auth');
     Route::post('store', [CategoryController::class, 'store'])->name('category.store')->middleware('auth');
     Route::get('update/{category}', [CategoryController::class, 'update'])->name('category.update')->middleware('auth');
-    Route::get('update/store{category}', [CategoryController::class, 'updateStore'])->name('category.update.store')->middleware('auth');
+    Route::post('update/store{category}', [CategoryController::class, 'updateStore'])->name('category.update.store')->middleware('auth');
     Route::get('delete/{category}', [CategoryController::class, 'delete'])->name('category.delete')->middleware('auth');
 });
 

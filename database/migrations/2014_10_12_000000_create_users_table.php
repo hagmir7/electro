@@ -22,10 +22,12 @@ return new class extends Migration
             $table->string('avatar')->default('/avatars/avatar.png');
             $table->string('address')->nullable();
             $table->text('bio')->nullable();
+            $table->select('role', ['admin', 'user'])->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+           
         });
 
         User::create([

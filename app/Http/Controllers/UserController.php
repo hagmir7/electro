@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function list(){
         return view('user/list',[
-            'users' => User::all()
+            'users' => User::paginate(30)
         ]);
     }
 

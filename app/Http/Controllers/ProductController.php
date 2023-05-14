@@ -21,6 +21,13 @@ class ProductController extends Controller
         ]);
     }
 
+    public function listAdmin(){
+        $product = Product::where('status', true)->paginate(15);
+        return view('product.list-admin', [
+            'products' => $product
+        ]);
+    }
+
     public function create() {
         return view('product.create', [
             'category' => Category::all(),

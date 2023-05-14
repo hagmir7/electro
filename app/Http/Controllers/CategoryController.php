@@ -16,6 +16,13 @@ class CategoryController extends Controller
 
     } 
 
+    public function listAdmin(){
+        return view('category.list-admin', [
+            'categories' => Category::paginate(12)
+        ]);
+
+    } 
+
 
     public function create(){
         return view('category.create');
@@ -36,17 +43,20 @@ class CategoryController extends Controller
             'image' => $url
         ]);
 
-        return redirect()->route('category.list')->with(['message' => "Category Created successfully."]);
+        return redirect()->route('category.list.admin')->with(['message' => "Category Created successfully."]);
     }
 
 
 
-    public function update(){
-        return view('category.update');
+    public function update(Category $category){
+        return view('category.update', [
+            'category' => $category
+        ]);
     }
 
 
     public function updateStore(Request $request, Category $category){
+
         $data = ['name' => $request->input('name')];
 
         if(!empty($request->file('image'))){
@@ -55,13 +65,12 @@ class CategoryController extends Controller
             $data = array_merge($data, ['image' => $url]);
         }
         $category->update($data);
-        return redirect()->route('category.list')->with(['message' => "Category updated successfully."]);
+        return redirect()->route('category.list.admin')->with(['message' => "Category updated successfully."]);
     }
-
 
     public function delete(Category $category){
         $category->delete();
-        return redirect()->route('category.list')->with(['message' => "Category deleted successfully."]);
+        return redirect()->route('category.list.admin')->with(['message' => "Category deleted successfully."]);
     }
 
     public function category(Category $category){
