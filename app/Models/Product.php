@@ -10,18 +10,11 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'price', 'old_price', 'description', 'user', 'color', 'category',
-        'stock' 
+        'name', 'price', 'old_price', 'description', 'body', 'user_id', 'stock', 'category_id', 'brand_id', 
     ];  
 
 
-    public function colors(){
-        return $this->belongsToMany(Color::class, 'product_colors');
-    }
 
-    public function sizes(){
-        return $this->belongsToMany(Size::class, 'product_sizes');
-    }
 
     public function images(){
         return $this->hasMany(ProductImages::class, 'product');
@@ -31,8 +24,12 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function caty(){
-        return $this->belongsTo(Category::class, 'category');
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function brand(){
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
 }

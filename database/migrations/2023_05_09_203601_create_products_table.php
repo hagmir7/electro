@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -20,9 +21,10 @@ return new class extends Migration
             $table->float('old_price')->nullable();
             $table->integer('stock');
             $table->text('description');
-            $table->boolean('status')->default(true);
-            $table->foreignIdFor(User::class, 'user');
-            $table->foreignIdFor(Category::class, 'category'); // belongs to on category
+            $table->text('body');
+            $table->foreignIdFor(Brand::class, 'brand_id');
+            $table->foreignIdFor(User::class, 'user_id');
+            $table->foreignIdFor(Category::class, 'category_id'); // belongs to on category
             $table->timestamps();
         });
     }

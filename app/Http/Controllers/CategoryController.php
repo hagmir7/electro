@@ -75,7 +75,8 @@ class CategoryController extends Controller
 
     public function category(Category $category){
         return view('category.category', [
-            "products" => Product::where('category', $category->id)->paginate(13)
+            "products" => Product::where('category_id', $category->id)->paginate(13),
+            'category' => $category
         ]);
     }
 }

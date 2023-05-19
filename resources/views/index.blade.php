@@ -2,94 +2,104 @@
 
 
 @section('content')
-<div class="container-fluid hero-header bg-light p-0 m-0">
-    <div class="container pt-3 p-0">
-        <div class="row g-3 ">
-            <div id="carouselExampleSlidesOnly" class="carousel slide col-md-8 card p-0 overflow-hidden" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="/assets/img/Clothing.png" class="d-block w-100" alt="Clothing">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="/assets/img/Electronic.png" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="/assets/img/Fitness.png" class="d-block w-100" alt="...">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class=" h-100">
-                    <div class="list-group">
-                        @foreach ($categories as $category)
-                        <a href="{{ route("category", $category->id ) }}" type="button" class="list-group-item list-group-item-action">{{ $category->name }}</a>
-                        @endforeach
-                      </div>
-                </div>
-              </div>
-        </div>
-    </div>
-</div>
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- ASIDE -->
+					<div id="aside" class="col-md-3">
+						
+						{{-- Categories --}}
+						<div class="aside">
+							<h3 class="aside-title">Catégories</h3>
+							<div class="checkbox-filter">
+								@foreach ($categories as $category)
+								<div class="input-checkbox">
+									<span>
+										<a href="{{ route('category', $category->id ) }}">{{ $category->name }}</a>
+									</span>
+								</div>
+								@endforeach
+							</div>
+						</div>
+	
 
+						{{-- Brands --}}
+						<div class="aside">
+							<h3 class="aside-title">Marques</h3>
+							<div class="checkbox-filter">
+								@foreach ($brands as $brand)
+								<div class="input-checkbox">
+									<span>
+										<a href="{{ route('brand', $brand->id ) }}">{{ $brand->name }} ({{ $brand->products->count() }})</a>
+									</span>
+								</div>
+								@endforeach
+							</div>
+						</div>
+					</div>
 
-<div class="container p-0">
-    <div class="d-flex justify-content-between">
-        <div><h5 class="mt-3 mb-0">Electronics and Gadgets</h5></div>
-        <div class="mt-3"><a href="/category/2">See More <i class="bi bi-arrow-right"></i></a></div>
-    </div>
-    <div class="row py-2">
-        @foreach ($electronics as $product)
-        <div class="col-sm-3 mb-3">
-            <div class="thumb-wrapper wow fadeInUp" data-wow-delay="0.{{$loop->index + 1}}s">
-                <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
-                <a href="{{ route('product', $product->id ) }}">
-                    <div class="img-box">
-                        <img src="{{ $product->images->first()->image }}" class="img-fluid" alt="Speaker">
-                    </div>
-                </a>
-                <div class="thumb-content">
-                    <h6>{{ Str::limit($product->name, $limit = 25, $end = '...') }}</h6>
-                    <p class="item-price"><del>{{ $product->old_price }} MAD</del> <strong>{{ $product->price }} MAD</strong></p>
-                    <a href="#" class="btn btn-outline-primary rounded-pill">Add to Cart</a>
-                </div>						
-            </div>
-        </div> 
-        @endforeach
-    </div>
-</div>
+					<!-- STORE -->
+					<div id="store" class="col-md-9">
+						<!-- store top filter -->
+						<div class="clearfix">
+							<div class="store-sort">
+							</div>
+					</div>
 
+						{{-- Products --}}
+						<div class="row">
+							<!-- product -->
+							@foreach ($products as $product)
+							<div class="col-md-4 col-xs-6">
+								<div class="product">
+									<a href="{{ route('product', $product->id ) }}">
+										<div class="product-img">
+											<img src="{{ $product->images->first()->image }}" alt="{{ $product->name }}">
+										</div>
+									</a>
+									<div class="product-body">
+										<p class="product-category">{{ $product->category->name }}</p>
+										<h3 class="product-name"><a href="{{ route('product', $product->id ) }}">{{ $product->name }}</a></h3>
+										<h4 class="product-price">{{ $product->price }} MAD<del class="product-old-price"> {{ $product->old_price }} MAD</del></h4>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<div>
+											@auth
+												@if (count(\App\Models\CartDetail::where('product_id', $product->id )->where('cart_id', auth()->user()->cart->id )->get()) > 0)
+												<button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm">  <span id="add-btn-{{ $product->id }}">Retirer du panier</span></button>										
+												@else
+												<button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm"> <span id="add-btn-{{ $product->id }}"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></button>			
+												@endif
+											@else
+											<a href="{{ route('login') }}" class="btn-primary btn btn-sm"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></a>										
+											@endauth
+										</div>
+									</div>
+								</div>
+							</div>
+							@endforeach
+						</div>
 
-<div class="container p-0">
-   
-
-    <div class="d-flex justify-content-between">
-        <div><h5 class="mt-3 mb-0">Clothing and Fashion </h5></div>
-        <div class="mt-3"><a href="/category/1">See More <i class="bi bi-arrow-right"></i></a></div>
-    </div>
-    <div class="row">
-        @foreach ($clothing as $product)
-        <div class="col-md-3">
-            <div class="thumb-wrapper text-start p-0 overflow-hidden" >
-                <div class="image-container">
-                    <a href="{{ route('product', $product->id )}}">
-                        <img src="{{ $product->images->first()->image }}" class="img-fluid border-bottom"> 
-                    </a>
-                </div>
-                <div class="product-detail-container p-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a href="{{ route('product', $product->id )}}">
-                        <h6 class="dress-name">{{ Str::limit($product->name, $limit = 40, $end = '...') }}</h6>
-                    </a>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <strong class="text-primary">{{$product->old_price}} MAD</strong>
-                        {{-- <del class="old-price text-right fs-6">{{ $product->old_price}} MAD</del> --}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-</div>
+						{{ $products->links('vendor.pagination.bootstrap-5')  }}
+						<!-- /store bottom filter -->
+					</div>
+					<!-- /STORE -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
 
 @endsection
+
+
+

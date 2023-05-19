@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductImages;
-use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,15 +13,20 @@ class ProductController extends Controller
 {
 
 
-    public function list(){
-        $product = Product::where('status', true)->paginate(15);
+    public function list(Request $request){
+        if(isset($request->search)){
+            $products  = Product::where('name', 'LIKE', '%' . $request->search . '%')->paginate(30);
+        }else{
+            $products  = Product::paginate(30);
+        }
+        
         return view('product.list', [
-            'products' => $product
+            'products' => $products
         ]);
     }
 
     public function listAdmin(){
-        $product = Product::where('status', true)->paginate(15);
+        $product = Product::paginate(15);
         return view('product.list-admin', [
             'products' => $product
         ]);
@@ -31,8 +35,6 @@ class ProductController extends Controller
     public function create() {
         return view('product.create', [
             'category' => Category::all(),
-            'sizes' => Size::all(),
-            'colors' => Color::all()
         ]);
     }
 
@@ -50,12 +52,14 @@ class ProductController extends Controller
             'old_price' => 'nullable|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'required|string',
-            'category' => 'required|exists:categories,id',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // validate each image
+            'body' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $data = array_merge($validation, [
-            'user' => auth()->user()->id
+            'user_id' => auth()->user()->id
         ]);
 
 
@@ -73,12 +77,6 @@ class ProductController extends Controller
         }
 
 
-        // Update colors
-        $product->colors()->sync($request->input('color', []));
-
-        // Update sizes
-        $product->sizes()->sync($request->input('size', []));
-
         return redirect()->route('product.list')->with(['message' => 'Product created successfully.']);
     }
 
@@ -88,8 +86,8 @@ class ProductController extends Controller
         return view('product.update', [
             'category' => Category::all(),
             'product' => $product,
-            'sizes' => Size::all(),
-            'colors' => Color::all()
+            'brands' => Brand::all(),
+
         ]);
     }
 
@@ -105,9 +103,13 @@ class ProductController extends Controller
             'old_price' => 'nullable|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'required|string',
-            'category' => 'required|exists:categories,id',
+            'body' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // validate each image
         ]);
+
+       
 
 
         $product->update($validation);
@@ -124,12 +126,6 @@ class ProductController extends Controller
                 ]);
             }
         }
-
-        // Update colors
-        $product->colors()->sync($request->input('color', []));
-
-        // Update sizes
-        $product->sizes()->sync($request->input('size', []));
 
         return redirect()->route('product', $product->id)->with(['message' => 'Product updated successfully.']);
     }

@@ -13,13 +13,29 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(["name" => "Clothing and Fashion", "image" => '/product/image-1.png']);
-        Category::create(["name" => "Electronics and Gadgets", "image" => '/product/image-2.png']);
-        Category::create(["name" => "Home and Garden", "image" => '/product/image-3.png']);
-        Category::create(["name" => "Health and Beauty", "image" => '/product/image-4.png']);
-        Category::create(["name" => "Sports and Fitness", "image" => '/product/image-5.png']);
-        Category::create(["name" => "Toys and Games", "image" => '/product/image-6.png']);
-        Category::create(["name" => "Books and Media", "image" => '/product/image-7.png']);
+        Category::create(["name" => "PC portables", "image" => '/fake/category/laptop.png']);
+        Category::create(["name" => "Smartphones", "image" => '/fake/category/phone.png']);
+        Category::create(["name" => "Tablets", "image" => '/fake/category/tablet.png']);
+        Category::create(["name" => "Claviers", "image" => '/fake/category/keyboard.png']);
+        Category::create(["name" => "Appareils photo", "image" => '/fake/category/camera.png']);
+        Category::create(["name" => "Moniteurs", "image" => '/fake/category/monitor.png']);
+        Category::create(["name" => "Imprimantes", "image" => '/fake/category/printer.png']);
+
+
+        // Laptops
+        // Smartphones
+        // Tablets
+        // Keyboards
+        // Mice (Computer mice)
+        // Monitors
+        // Printers
+        // Headphones
+        // Speakers
+        // Cameras (Digital cameras)
+        // Smartwatches
+        // Gaming Consoles
+        // Televisions
+        // Projectors
 
     }
 }

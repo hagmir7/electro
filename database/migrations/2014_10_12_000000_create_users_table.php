@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,8 +22,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('avatar')->default('/avatars/avatar.png');
             $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->text('bio')->nullable();
-            $table->enum('role', ['admin', 'user'])->default('user');
+            $table->enum('role', ['Admin', 'User'])->default('User');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -31,12 +33,15 @@ return new class extends Migration
         });
 
         User::create([
-            'first_name' => 'mery',
-            'last_name' => "shop",
-            'email' => 'mery@gmail.com',
-            "password" => Hash::make('mery123'),
+            'first_name' => 'Admin',
+            'last_name' => "Admin",
+            'email' => 'admin@gmail.com',
+            "password" => Hash::make('admin123'),
+            'role' => "Admin",
             "token" => Str::random(40),
         ]);
+
+
     }
 
     /**

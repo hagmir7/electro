@@ -3,51 +3,50 @@
 
 @section('content')
 <div class="container mt-3 mb-5">
-    <div class="d-flex justify-content-center row">
-        <div class="col-md-4">
-            <div class="card">
-
-            </div>
-        </div>
-        <div class="col-md-8">
-            @foreach ($products as $product)
-            <div class="row p-2 bg-white border rounded mt-2 wow fadeInUp" data-wow-delay="0.{{$loop->index + 1}}s">
-                <div class="col-md-3 mt-1">
-                    <img class="img-fluid img-responsive rounded product-image" alt="{{ $product->name }}" src="{{ $product->images->first()->image }}">
-                </div>
-                <div class="col-md-6 mt-1">
-                    <h5>{{ $product->name }}</h5>
-                    <div class="d-flex flex-row">
-                        <strong>{{ $product->caty->name }}</strong>
-                    </div>
-                    <p class="text-justify mb-0">{{ Str::limit($product->description, $limit = 160, $end = '...')}}</p>
-                </div>
-                <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                    <div class=" align-items-center">
-                        <h4 class="mr-1 mb-0">{{ $product->price }} MAD</h4> 
-                        <del class="strike-text">{{$product->old_price}} MAD</del>
-                    </div>
-                    <h6 class="text-success">Free shipping</h6>
-                    <div class="d-flex flex-column mt-4">
-                        <a href="{{ route('product', $product->id ) }}" class="btn btn-primary btn-sm" type="button">Details</a>
-                        <button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to wishlist</button>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-            @if (count($products) < 1)
-            <div class="my-4">
-                <h3 class="text-center">No Products</h3>
-            </div>
-            @endif
-        </div>
-        <br>
-        <div class="col-12 mt-2">
-            {{ $products->links('vendor.pagination.bootstrap-5') }}
-        </div>
-        
-
+    <div class="row">
+        <h1 class="h2 mt-3">{{ $category->name }} ({{ count($products)}})</h1>
     </div>
-</div>
+    <div class="row">
+        <!-- product -->
+        @foreach ($products as $product)
+        <div class="col-md-3 col-xs-6">
+            <div class="product">
+                <a href="{{ route('product', $product->id ) }}">
+                    <div class="product-img">
+                        <img src="{{ $product->images->first()->image }}" alt="{{ $product->name }}">
+                    </div>
+                </a>
+                <div class="product-body">
+                    <p class="product-category">{{ $product->category->name }}</p>
+                    <h3 class="product-name"><a href="{{ route('product', $product->id ) }}">{{ $product->name }}</a></h3>
+                    <h4 class="product-price">{{ $product->price }} MAD<del class="product-old-price"> {{ $product->old_price }} MAD</del></h4>
+                    <div class="product-rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="">
+                        @auth
+                        @if (count(\App\Models\CartDetail::where('product_id', $product->id )->where('cart_id', auth()->user()->cart->id )->get()) > 0)
+                            <button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm">  <span id="add-btn-{{ $product->id }}">Retirer du panier</span></button>										
+                        @else
+                            <button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm"> <span id="add-btn-{{ $product->id }}"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></button>			
+                        @endif
+                        @else
+                            <a href="{{ route('login') }}" class="btn-primary btn btn-sm"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></a>										
+                        @endauth
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        @if($products->count() == 0)
+            <div class="col-12">
+                <h3 class="h1 fs-2 text-center my-5">Aucun produit</h3>
+            </div>
+        @endif
+    </div>
 </div>
 @endsection

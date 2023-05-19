@@ -37,7 +37,7 @@ class ContactController extends Controller
 
         ]);
 
-        return redirect()->route('contact.list')->with('message', "Le message a été envoyer avec succès.");
+        return redirect('/')->with('message', "Le message a été envoyer avec succès.");
         
         
     }

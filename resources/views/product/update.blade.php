@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row g-5 align-items-center d-flex justify-content-center">
             <div class="col-lg-10" data-wow-delay="0.1s">
-                <h1 class="h3">Update Product</h1>
+                <h1 class="h3">Modifier le produit</h1>
                 @if ($errors->any())
 
                 @foreach ($errors->all() as $error)
@@ -20,82 +20,76 @@
                     @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" value="{{ $product->name }}" class="form-control mb-2" >
+                            <label for="name">Nom du produit</label>
+                            <input type="text" name="name" value="{{ $product->name }}" class="form-control fs-4 mb-2" >
                             @error('name') <span class="text-danger">{{$message}}</span> <br>@enderror
 
-                            <label for="price">Price</label>
-                            <input type="text" name="price" value="{{ $product->price }}" class="form-control mb-2" >
+                            <label for="price">Prix</label>
+                            <input type="text" name="price" value="{{ $product->price }}" class="form-control fs-4 mb-2" >
                             @error('price') <span class="text-danger">{{$message}}</span> <br>@enderror
 
-                            <label for="old_price">Old Price</label>
-                            <input type="number" name="old_price" value="{{ $product->old_price }}" class="form-control mb-2">
+                            <label for="old_price">Ancien prix</label>
+                            <input type="number" name="old_price" value="{{ $product->old_price }}" class="form-control fs-4 mb-2">
                             @error('old_price') <span class="text-danger">{{$message}}</span> <br>@enderror
 
-                            <label for="stock">Quantity in Stock</label>
-                            <input type="number" name="stock" value="{{ $product->stock }}" class="form-control mb-2">
+                            <label for="stock">Quantité en dépôt</label>
+                            <input type="number" name="stock" value="{{ $product->stock }}" class="form-control fs-4 mb-2">
                             @error('stock') <span class="text-danger">{{$message}}</span> <br>@enderror
 
-                            <label for="name">Category</label>
-                            <select name="category" class="form-select mb-2">
-                                <option value="">Select Category</option>
+                            <label for="name">Catégorie</label>
+                            <select name="category_id" class="form-select mb-2 fs-4">
+                                <option value="">Choisir une catégorie</option>
                                 @foreach ($category as $caty)
-                                @if ($caty->id == $product->caty->id )
-                                <option selected value="{{ $caty->id }}">{{ $caty->name }}</option>
-                                @else
-                                <option value="{{ $caty->id }}">{{ $caty->name }}</option>
-                                @endif
+                                    @if ($caty->id == $product->category->id )
+                                    <option selected value="{{ $caty->id }}">{{ $caty->name }}</option>
+                                    @else
+                                    <option value="{{ $caty->id }}">{{ $caty->name }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             @error('category') <span class="text-danger">{{$message}}</span> <br>@enderror
 
 
-                            <label for="color">Select Colors</label>
-                            <select name="color[]" class="form-select mb-2" multiple>
-                                @foreach ($colors as $color)
-                                @if ($product->colors->contains($color))
-                                <option selected value="{{ $color->id }}">{{ $color->name }}</option>
-                                @else
-                                <option value="{{ $color->id }}">{{ $color->name }}</option>
-                                @endif
+                            <label for="name">Marque</label>
+                            <select name="brand_id" class="form-select mb-2 fs-4">
+                                <option value="">SChoisir une Marque</option>
+                                @foreach ($brands as $brand)
+                                    @if ($brand->id == $product->brand->id )
+                                    <option selected value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                    @else
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                    @endif
                                 @endforeach
                             </select>
-                            @error('color') <span class="text-danger">{{$message}}</span> <br>@enderror
-
-                            <label for="size">Select Sizes</label>
-                            <select name="size[]" class="form-select mb-2" multiple>
-                                @foreach ($sizes as $size)
-                                @if ($product->sizes->contains($size))
-                                <option selected value="{{ $size->id }}">{{ $size->size }}</option>
-                                @else
-                                <option value="{{ $size->id }}">{{ $size->size }}</option>
-                                @endif
-                                @endforeach
-                            </select>
-                            @error('size') <span class="text-danger">{{$message}}</span> <br>@enderror
+                            @error('marque') <span class="text-danger">{{$message}}</span> <br>@enderror
                         </div>
                         <div class="col-md-6">
                             
                             <label for="images">Images</label>
-                            <input type="file" accept="image/*" class="form-control mb-2" name="images[]" multiple>
+                            <input type="file" accept="image/*" class="form-control fs-4 mb-2" name="images[]" multiple>
 
                             {{-- Product Images --}}
                             <div class="row">
                                 @foreach ($product->images as $image)
-                                    <div class="col-4 item mb-1" >
+                                    <div class="col-4 item mb-1 " >
                                         <a href="{{ $image->image }}"><img src="{{ $image->image }}" class="w-100 border" alt=""></a>
-                                        <div class="item-description">
-                                            <strong><a href="{{ route('image.delete', $image->id ) }}" onclick="return confirm('Arte you sur you want to delete product?')" class="text-white">Delete</a></strong>
+                                        <div class="item-description mt-2">
+                                            <strong class="w-100 bg-light border p-2 "><a href="{{ route('image.delete', $image->id ) }}" onclick="return confirm('Voulez-vous vraiment supprimer le produit ?')">Supprimer</a></strong>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                             @error('images') <span class="text-danger">{{$message}}</span> <br>@enderror
                             <label for="description">Description</label>
-                            <textarea name="description" cols="30" rows="6"class="form-control mb-2">{{ $product->description }}</textarea>
+                            <textarea name="description" cols="30" rows="6"class="form-control fs-4 mb-2">{{ $product->description }}</textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="body">Grand Description </label>
+                            <textarea name="body" cols="30" rows="8"class="form-control fs-4 mb-2">{{ $product->body }}</textarea>
                         </div>
                     </div>
-                    <button class="btn btn-primary col-md-6">Update Product</button>
+                    
+                    <div class="d-flex justify-content-center"><button class="btn btn-primary mt-2 col-md-6">Modifier le produit</button></div>
                 </form>
             </div>
         </div>
