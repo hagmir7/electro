@@ -54,7 +54,7 @@
     </div>
 
     <div class="col-md-3 card p-3">
-        <h5><a href="{{ route('brand.list') }}">Marques</a></h5>
+        <h5><a href="{{ route('brand.list.admin') }}">Marques</a></h5>
         <h4><i class="bi bi-bookmark-check"></i> {{ $brands->count() }}</h4>
     </div>
 </div>
