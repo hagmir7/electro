@@ -16,8 +16,6 @@
             <p class="mt-1">Ville : <strong>{{ $order->city }}</strong> </p>
             <p class="mt-1">Adrisse : <strong>{{ $order->address }}</strong> </p>
             <p>Total : <strong>{{ $order->getTotal() }} MAD</strong> </p>
-         
-    
             @if (count($order->details) > 0)
             <table class="table border">
               <thead class="border-0">

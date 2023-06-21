@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layout.dash')
 
 
 @section('content')
@@ -8,7 +8,7 @@
             <table id="mytable" class="table table-bordred table-striped">
                 <h4>Liste des utilisateurs ({{ $users->count() }})</h4>
                 <div class="d-flex justify-content-between">
-                    <p><a class="btn btn-outline-success fs-4" href="{{ route('register') }}">+ Créer un utilisateur</a></p>
+                    <p><a class="btn btn-outline-success" href="{{ route('register') }}">+ Créer un utilisateur</a></p>
                 </div>
                 <thead>
                     <tr>

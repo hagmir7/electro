@@ -25,10 +25,15 @@ class ProductController extends Controller
         ]);
     }
 
-    public function listAdmin(){
-        $product = Product::paginate(15);
+    public function listAdmin(Request $request){
+        !auth()->user()->role && abort(404);
+        if(isset($request->search)){
+            $products  = Product::where('name', 'LIKE', '%' . $request->search . '%')->paginate(30);
+        }else{
+            $products  = Product::paginate(30);
+        }
         return view('product.list-admin', [
-            'products' => $product
+            'products' => $products
         ]);
     }
 

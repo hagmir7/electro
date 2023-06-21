@@ -7,7 +7,7 @@
         <div class="col-md-6 mt-1">
             <h5>{{ $product->name }}</h5>
             <div class="d-flex flex-row">
-                <strong>{{ $product->caty->name }}</strong>
+                <strong>{{ $product->category->name }}</strong>
             </div>
             <p class="text-justify mb-0">{{ Str::limit($product->description, $limit = 160, $end = '...')}}</p>
         </div>

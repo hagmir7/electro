@@ -16,13 +16,17 @@ class CategoryController extends Controller
 
     } 
 
-    public function listAdmin(){
+    public function listAdmin(Request $request)
+    {
+        if (isset($request->search)) {
+            $categories  = Category::where('name', 'LIKE', '%' . $request->search . '%')->paginate(30);
+        } else {
+            $categories  = Category::paginate(30);
+        }
         return view('category.list-admin', [
-            'categories' => Category::paginate(12)
+            'categories' => $categories
         ]);
-
     } 
-
 
     public function create(){
         return view('category.create');
@@ -78,5 +82,12 @@ class CategoryController extends Controller
             "products" => Product::where('category_id', $category->id)->paginate(13),
             'category' => $category
         ]);
+    }
+
+    public function deleteMultiple(Request $request){
+        $categories = $request->input('category', []);
+        Category::whereIn('id', $categories)->delete();
+        return response()->json(['message' => 'Les Catégories ont été supprimés avec succès!']);
+        
     }
 }
