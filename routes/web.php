@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -32,7 +33,6 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-
     if (Auth::check()) {
         if (!auth()->user()->cart) {
             Cart::create([
@@ -43,13 +43,14 @@ Route::get('/', function () {
         }
         
     }
-
-
     return view('index', [
         'products' => Product::paginate(15),
         'categories' => Category::paginate(10)
     ]);
 });
+
+
+Route::get('/chart', [ChartController::class, 'viewsChart'])->name('product.chart');
 
 
 Route::get('/thanks', function () {
@@ -71,6 +72,8 @@ Route::prefix('/product')->group(function () {
     Route::get('{product}', [ProductController::class, 'product'])->name('product');
     Route::put('update/store/{product}', [ProductController::class, 'updateStore'])->name('product.update.store');
     Route::get('delete/{product}', [ProductController::class, 'delete'])->name('product.delete')->middleware('auth');
+    Route::post('delete', [ProductController::class, 'deleteMultiple'])->name('product.delete.multiple')->middleware('auth');
+
 
 });
 
@@ -80,31 +83,48 @@ Route::prefix('/image')->group(function(){
     Route::get('list', [ProductImagesController::class, 'list'])->name('image.list');
 });
 
+// Route::get('/dashboard', function(){
+
+
+//     $today = Order::whereDate('created_at', Carbon::today())->count();
+//     $yesterday = Order::whereDate('created_at', Carbon::yesterday())->count();
+//     $lastSevenDays = Order::where('created_at', '>=', Carbon::now()->subDays(7))->count();
+//     $thisMonth = Order::whereYear('created_at', Carbon::now()->year)
+//                       ->whereMonth('created_at', Carbon::now()->month)
+//                       ->count();
+
+
+//     return view('dashboard',[
+//         'contacts' => Contact::all(),
+//         'users' => User::all(),
+//         'orders' => Order::all(),
+//         'products' => Product::all(),
+//         'categories' => Category::all(),
+//         'brands' => Brand::all(),
+//         'today' => $today,
+//         'yesterday' => $yesterday,
+//         'last7Days' => $lastSevenDays,
+//         'thisMonth' => $thisMonth,
+//     ]);
+// })->name('dashboard')->middleware('auth');
+
+
+
+
 Route::get('/dashboard', function(){
-
-
-    $today = Order::whereDate('created_at', Carbon::today())->count();
-    $yesterday = Order::whereDate('created_at', Carbon::yesterday())->count();
-    $lastSevenDays = Order::where('created_at', '>=', Carbon::now()->subDays(7))->count();
-    $thisMonth = Order::whereYear('created_at', Carbon::now()->year)
-                      ->whereMonth('created_at', Carbon::now()->month)
-                      ->count();
-
-
+    !auth()->user()->role && abort(404);
     return view('dashboard',[
         'contacts' => Contact::all(),
-        'users' => User::all(),
+        'users' => User::all()->count(),
         'orders' => Order::all(),
+        'new_orders' => Order::where('status', null)->get(),
         'products' => Product::all(),
         'categories' => Category::all(),
-        'brands' => Brand::all(),
-        'today' => $today,
-        'yesterday' => $yesterday,
-        'last7Days' => $lastSevenDays,
-        'thisMonth' => $thisMonth,
+        'users' => User::query()->count(),
     ]);
-})->name('dashboard')->middleware('auth');
 
+
+})->name('dashboard')->middleware('auth');
 
 
 
@@ -143,6 +163,7 @@ Route::prefix('/category')->group(function(){
     Route::get('update/{category}', [CategoryController::class, 'update'])->name('category.update')->middleware('auth');
     Route::put('update/store{category}', [CategoryController::class, 'updateStore'])->name('category.update.store')->middleware('auth');
     Route::get('delete/{category}', [CategoryController::class, 'delete'])->name('category.delete')->middleware('auth');
+    Route::post('delete', [CategoryController::class, 'deleteMultiple'])->name('category.delete.multiple')->middleware('auth');
 });
 
 
@@ -153,7 +174,7 @@ Route::prefix('/cart')->group(function(){
 });
 
 
-
+// Command
 Route::prefix('/order')->group(function(){
     Route::get('create', [OrderController::class, 'create'])->name('order.create');
     Route::get('store', [OrderController::class, 'store'])->name('order.store');
@@ -166,7 +187,7 @@ Route::prefix('/order')->group(function(){
 });
 
 
-
+// Marque
 Route::prefix('/brand')->group(function(){
     Route::get('create', [BrandController::class, 'create'])->name('brand.create')->middleware('auth');
     Route::get('list', [BrandController::class, 'list'])->name('brand.list');

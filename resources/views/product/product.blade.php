@@ -8,34 +8,27 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-					<!-- Product main img -->
+
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
-
 							@foreach ($product->images as $item)
-              <div class="product-preview">
-								<img src="{{ $item->image }}" alt="">
-							</div>
-              @endforeach
-
+								<div class="product-preview">
+									<img src="{{ $item->image }}" alt="">
+								</div>
+             				 @endforeach
 						</div>
 					</div>
-					<!-- /Product main img -->
-
-					<!-- Product thumb imgs -->
+			
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
-              @foreach ($product->images as $item)
-              <div class="product-preview">
-								<img src="{{ $item->image}}" alt="">
-							</div>
-              @endforeach
-
+							@foreach ($product->images as $item)
+								<div class="product-preview">
+									<img src="{{ $item->image}}" alt="">
+								</div>
+							@endforeach
 						</div>
 					</div>
-					<!-- /Product thumb imgs -->
 
-					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
 							<h2 class="product-name">{{ $product->name }}</h2>

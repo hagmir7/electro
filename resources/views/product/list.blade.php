@@ -1,53 +1,105 @@
-@extends('layout.layout')
+@extends('layout.dash')
 
 
 @section('content')
-<div class="container mt-3 mb-5">
-    <div class="row">
-        <h1 class="h2 mt-3">Tout les produits ({{ count($products)}})</h1>
-    </div>
-    <div class="row">
-        <!-- product -->
-        @foreach ($products as $product)
-        <div class="col-md-3 col-xs-6">
-            <div class="product">
-                <a href="{{ route('product', $product->id ) }}">
-                    <div class="product-img">
-                        <img src="{{ $product->images->first()->image }}" alt="{{ $product->name }}">
-                    </div>
-                </a>
-                <div class="product-body">
-                    <p class="product-category">{{ $product->category->name }}</p>
-                    <h3 class="product-name"><a href="{{ route('product', $product->id ) }}">{{ $product->name }}</a></h3>
-                    <h4 class="product-price">{{ $product->price }} MAD<del class="product-old-price"> {{ $product->old_price }} MAD</del></h4>
-                    <div class="product-rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <div class="">
-                        @auth
-                            @if (count(\App\Models\CartDetail::where('product_id', $product->id )->where('cart_id', auth()->user()->cart->id )->get()) > 0)
-                                <button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm">  <span id="add-btn-{{ $product->id }}">Retirer du panier</span></button>										
-                            @else
-                                <button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm"> <span id="add-btn-{{ $product->id }}"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></button>			
-                            @endif
-                            @else
-                            <a href="{{ route('login') }}" class="btn-primary btn btn-sm"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></a>										
-                        @endauth
-                    </div>
-                </div>
-            </div>
+
+<style>
+    a{
+        text-decoration: none!important;
+    }
+</style>
+<div class="table-responsive  overflow-auto">
+    <table id="mytable" class="table table-bordred table-striped">
+        <h4>Products ({{ $products->count() }})</h4>
+        <div class="d-flex justify-content-between">
+            <p><a class="btn btn-outline-success btn-sm" href="{{ route('product.create') }}">+ Créer un produit</a></p>
+            <p><button class="btn btn-outline-danger btn-sm" id="btn-delete" onclick="deleteProducts()"><i class="bi bi-trash"></i> Supprimer sélectionnée</button></p>
+            <p><form method="GET"> <input type="search" name="search" class="form-control form-control-sm border" placeholder="Search"></form></p>
         </div>
-        @endforeach
-        {{ $products->links('vendor.pagination.bootstrap-5')  }}
-        @if($products->count() == 0)
-            <div class="col-12">
-                <h3 class="h1 fs-2 text-center my-5">Aucun produit</h3>
-            </div>
-        @endif
-    </div>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="checkall"></th>
+                <th>Nom du produit</th>
+                <th>Catégorie</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($products as $product)
+            <tr id="product-{{ $product->id}}">
+                <td><input type="checkbox" class="checkthis" name="product[]" value="{{ $product->id }}"></td>
+                <td><a class="text-black underline-none" href="{{ route('product', $product->id) }}">{{ Str::limit($product->name, 40, '...') }}</a></td>
+                <td><a class="text-black" href="{{ route('category', $product?->category->id) }}">{{ $product->category->name }}</a></td>
+                <td>{{ $product->price }} MAD</td>
+                <td>
+                    <a href="{{ route('product.update', $product->id) }}" class="btn btn-primary btn-sm btn-xs"><i class="bi bi-pen"></i></a>
+                    <a href="{{ route('product.delete', $product->id) }}" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?')" class="btn btn-danger btn-sm btn-xs"> <i class="bi bi-trash"></i> </a>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+
+    </table>
+
+    <div class="clearfix"></div>
+    {{ $products->links('vendor.pagination.bootstrap-5') }}
+
 </div>
+
+
+@endsection
+
+@section('script')
+<script>
+
+    $('#checkall').change(function() {
+        $('input[name="product[]"]').prop('checked', $(this).prop('checked'));
+    });
+
+
+    const deleteProducts = (e) => {
+        const products = $('input[name="product[]"]:checked');
+        const listProducts = products.map(function () {
+            return this.value;
+        }).get();
+
+        const deleteBtn = document.querySelector('#btn-delete')
+
+        if (confirm('Voulez-vous vraiment supprimer ce produits ?')) {
+            deleteBtn.innerHTML = (
+                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>  Suppression...</span>'
+            )
+            $.ajax({
+                url: `{{ route('product.delete.multiple') }}`,
+                method: "POST",
+                data: {
+                    product: listProducts
+                },
+                success: function (response) {
+                    listProducts.forEach(element => {
+                        document.querySelector('#product-'+element).remove()
+                    });
+                    deleteBtn.innerHTML = 'Supprimer sélectionnée';
+                    Swal.fire({
+                        title: 'Succès!',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                },
+                error: function (xhr) {
+                    deleteBtn.innerHTML = 'Supprimer sélectionnée'
+                    Swal.fire({
+                        title: 'Error!',
+                        text: xhr.responseJSON.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            });
+        }
+
+    }
+</script>
 @endsection

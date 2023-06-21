@@ -57,7 +57,7 @@
 								<div class="product">
 									<a href="{{ route('product', $product->id ) }}">
 										<div class="product-img">
-											<img src="{{ $product->images->first()->image }}" alt="{{ $product->name }}">
+											<img src="{{ $product->images?->first()?->image }}" alt="{{ $product->name }}">
 										</div>
 									</a>
 									<div class="product-body">
