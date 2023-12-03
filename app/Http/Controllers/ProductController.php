@@ -3,27 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        if (isset($request->search)) {
+            $products  = Product::where('name', 'LIKE', '%' . $request->search . '%')->paginate(30);
+        } else {
+            $products  = Product::orderBy('created_at', 'desc')->paginate(30);
+        }
+
+
+        if (Auth::check()) {
+            if (!auth()->user()->cart) {
+                Cart::create([
+                    'user_id' => auth()->user()->id,
+                    'total' => 0
+                ]);
+                return redirect('/');
+            }
+        }
+
+        return view('index', [
+            'products' => $products,
+            'categories' => Category::paginate(10)
+        ]);
+    }
+
+
 
 
     public function list(Request $request){
         if(isset($request->search)){
             $products  = Product::where('name', 'LIKE', '%' . $request->search . '%')->paginate(30);
         }else{
-            $products  = Product::paginate(30);
+            $products  = Product::orderBy('created_at', 'desc')->paginate(30);
         }
-        
+
         return view('product.list', [
             'products' => $products
         ]);
     }
+
+
+
+
+
+
 
     public function listAdmin(Request $request){
         !auth()->user()->role && abort(404);
@@ -87,7 +122,7 @@ class ProductController extends Controller
 
 
     public function update(Product $product){
-        
+
         return view('product.update', [
             'category' => Category::all(),
             'product' => $product,
@@ -114,7 +149,7 @@ class ProductController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // validate each image
         ]);
 
-       
+
 
 
         $product->update($validation);
@@ -136,7 +171,7 @@ class ProductController extends Controller
     }
 
 
-    
+
     public function delete(Product $product){
         $product->delete();
         return redirect()->route('product.list')->with(['message' => 'Product created successfully.']);

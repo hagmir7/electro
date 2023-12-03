@@ -212,8 +212,16 @@
                                     <tr>
                                         <td><a href="{{ route('order.show', $order->id ) }}">#{{ $order->id }}</a></td>
                                         <td>
-                                            <a href="{{ route('user.update', $order->user->id ) }}">{{
-                                                $order->user->first_name}} {{ $order->user->first_name}}</a>
+                                            @if ($order->user)
+                                            <a href="{{ route('user.update', $order->user->id ) }}">
+                                                {{ $order->user->first_name}} {{ $order->user->first_name}}
+                                            </a>
+                                            @else
+                                            <a href="#!">
+                                                {{ $order->first_name}} {{ $order->last_name}}
+                                            </a>
+                                            @endif
+
                                         </td>
                                         <td>{{ $order->details->count() }}</td>
                                         <td>{{ $order->getTotal() }} MAD</td>

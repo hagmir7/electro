@@ -7,7 +7,7 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-5 card my-4 py-4 px-2">
             <h1 class="h2 text-center">Connexion</h1>
-            <form action="{{ route('login.store') }}" method="POST" >
+            <form action="{{ route('login.store') }}?next={{ request()->query('next') }}" method="POST" >
                 @csrf
                 @error('email')
                     <div class="p-1 alert alert-danger">{{ $message }}</div>

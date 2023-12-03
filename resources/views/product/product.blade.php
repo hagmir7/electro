@@ -18,7 +18,7 @@
              				 @endforeach
 						</div>
 					</div>
-			
+
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
 							@foreach ($product->images as $item)
@@ -57,12 +57,12 @@
 									<button class="add-to-cart-btn" onclick="addToCart('{{ $product->id }}')"><i class="fa fa-shopping-cart"></i> <span id="add-btn-{{ $product->id }}">Retirer du panier</span> </button>
 									@else
 									<button class="add-to-cart-btn" onclick="addToCart('{{ $product->id }}')"><i class="fa fa-shopping-cart"></i> <span id="add-btn-{{ $product->id }}">Ajouter au panier</span> </button>
-									@endif	
+									@endif
 								@else
 								<button class="add-to-cart-btn" onclick="return (window.location.href = '{{ route('login') }}') "><i class="fa fa-shopping-cart"></i> <span>Ajouter au panier</span> </button>
 								@endauth
-							
 							</div>
+                            <a class="btn btn-warning fw-bold text-light rounded-pill fs-3 w-100" href="{{ route('product.order', $product->id ) }}"> <span>Acheter maintenant</span> </a>
 						</div>
 					</div>
 					<!-- /Product details -->

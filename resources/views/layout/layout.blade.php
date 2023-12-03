@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - HTML Ecommerce Template</title>
+		<title>Nador Store - HTML Ecommerce Template</title>
 
  		<!-- Google font -->
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -96,7 +96,7 @@
 									@auth
 									<li><a href="{{ route('logout') }}">Deconnexion</a></li>
 									@endauth
-									
+
 								</ul>
 							</div>
 						</div>
@@ -106,9 +106,9 @@
 								<h3 class="footer-title">À propos de nous</h3>
 								<p>Nous sommes un détaillant majeur spécialisé dans les ordinateurs portables, les téléphones, les appareils photo et autres dispositifs électroniques. Avec une vaste sélection de produits de haute qualité provenant de marques de confiance.</p>
 								<ul class="footer-links">
-									<li><a href="#!"><i class="fa fa-map-marker"></i>Center Ville, Fes, Maroc</a></li>
+									<li><a href="#!"><i class="fa fa-map-marker"></i>Center Ville, Nador, Maroc</a></li>
 									<li><a href="#"><i class="fa fa-phone"></i>+212 534342565</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>contact@elctro.com</a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i>contact@nador.store</a></li>
 								</ul>
 							</div>
 						</div>
@@ -118,7 +118,7 @@
 				<!-- /container -->
 			</div>
 
-			
+
 		</footer>
 
 		<!-- jQuery Plugins -->
@@ -136,7 +136,7 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-		
+
 			  function addToCart(product){
 				document.getElementById(`add-btn-${product}`).innerHTML = '<div class="spinner-border" role="status"></div>';
 				const qty = document.getElementById('qty');

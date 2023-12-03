@@ -504,13 +504,13 @@ textarea.input {
 }
 
 .header-search form .input {
-  width: calc(100% - 260px);
+  width:80%;
   margin-right: -4px;
 }
 
 .header-search form .search-btn {
   height: 40px;
-  width: 100px;
+  width: 20%;
   background: #D10024;
   color: #FFF;
   font-weight: 700;
@@ -911,7 +911,7 @@ textarea.input {
 .product .product-img>img {
   width: 100%;
   height: 210px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .product .product-img .product-label {
@@ -2217,6 +2217,10 @@ textarea.input {
   .section-tab-nav li {
     margin-top: 10px;
   }
+
+  .aside {
+  display: none!important;
+}
 }
 
 @media only screen and (max-width: 480px) {

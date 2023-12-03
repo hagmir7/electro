@@ -10,7 +10,7 @@
 				<div class="row">
 					<!-- ASIDE -->
 					<div id="aside" class="col-md-3">
-						
+
 						{{-- Categories --}}
 						<div class="aside">
 							<h3 class="aside-title">Catégories</h3>
@@ -24,7 +24,7 @@
 								@endforeach
 							</div>
 						</div>
-	
+
 
 						{{-- Brands --}}
 						<div class="aside">
@@ -53,7 +53,7 @@
 						<div class="row">
 							<!-- product -->
 							@foreach ($products as $product)
-							<div class="col-md-4 col-xs-6">
+							<div class="col-lg-4 col-md-6 col-6 col-sm-6 col-xs-12">
 								<div class="product">
 									<a href="{{ route('product', $product->id ) }}">
 										<div class="product-img">
@@ -74,12 +74,12 @@
 										<div>
 											@auth
 												@if (count(\App\Models\CartDetail::where('product_id', $product->id )->where('cart_id', auth()->user()->cart->id )->get()) > 0)
-												<button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm">  <span id="add-btn-{{ $product->id }}">Retirer du panier</span></button>										
+												<button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm">  <span id="add-btn-{{ $product->id }}">Retirer du panier</span></button>
 												@else
-												<button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm"> <span id="add-btn-{{ $product->id }}"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></button>			
+												<button onclick="addToCart({{ $product->id }})" class="btn-primary btn btn-sm"> <span id="add-btn-{{ $product->id }}"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></button>
 												@endif
 											@else
-											<a href="{{ route('login') }}" class="btn-primary btn btn-sm"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></a>										
+											<a href="{{ route('login') }}" class="btn-primary btn btn-sm"><i class="fa fa-shopping-cart"></i>  Ajouter au panier</span></a>
 											@endauth
 										</div>
 									</div>

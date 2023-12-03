@@ -55,6 +55,30 @@ class OrderController extends Controller
         ]);
     }
 
+    public function productOrder(Product $product){
+        return view('order.product-order', compact('product'));
+    }
+
+    public function productOrderStore(Product $product, Request $request)
+    {
+        $validation = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'phone' => 'required',
+        ]);
+        $order = Order::create($validation);
+        OrderDetail::create([
+            'product_id' => $product->id,
+            'order_id' => $order->id,
+            'quantity' => $request->quantity ? $request->quantity : 1
+        ]);
+        return redirect()->route('thanks');
+    }
+
 
     public function orderItem(Request $request, Order $order, Product $product){
         OrderDetail::create([

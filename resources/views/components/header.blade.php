@@ -19,9 +19,11 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form class="rounded" method="GET" action="{{ route('product.list') }}">
-                            <input name="search" class="input px-3 rounded-start-pill" placeholder="Recherche ici">
-                            <button type="submit" class="search-btn">Recherche</button>
+                        <form class="rounded" method="GET" action="{{ route('home') }}">
+                            <div class="input-group">
+                                <input name="search" class="input px-3 rounded-start-pill" placeholder="Recherche ici">
+                                <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -52,7 +54,7 @@
                                     <span>Votre Panier</span>
                                     <div id="cart-items" class="qty">{{ auth()->user()->cart?->items->count() }}</div>
                                 </a>
-                            </div> 
+                            </div>
                             @else
                             <div class="dropdown">
                                 <a class="text-white" href="{{ route('cart.list') }}">
@@ -60,9 +62,9 @@
                                     <span>Votre Panier</span>
                                     <div id="cart-items" class="qty">{{ auth()->user()->cart?->items->count() }}</div>
                                 </a>
-                            </div>   
+                            </div>
                             @endif
-                       
+
 
                         @endauth
                         <div class="menu-toggle">

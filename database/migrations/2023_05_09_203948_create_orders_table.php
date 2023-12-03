@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, "user_id");
+            $table->foreignIdFor(User::class, "user_id")->nullable();
             $table->float('total')->nullable();
             $table->string('first_name');
             $table->string('last_name');

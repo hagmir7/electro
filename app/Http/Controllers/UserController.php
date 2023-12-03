@@ -33,7 +33,7 @@ class UserController extends Controller
                 'email' => 'required|email|unique:users',
                 "password" => 'required|string|max:100',
                 'password_1' => 'required'
-            ]); 
+            ]);
 
 
             User::create([
@@ -46,7 +46,7 @@ class UserController extends Controller
 
             return redirect()->route('user.list')->with('message', 'Utilisateur créé avec succès');
         }else{
-            
+
             throw ValidationException::withMessages(['password' => 'This value is incorrect']);
         }
     }
@@ -69,7 +69,11 @@ class UserController extends Controller
 
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/');
+            if(request()->next){
+                return redirect()->intended(request()->next);
+            }else{
+                return redirect()->intended('/');
+            }
         } else {
             return back()->withErrors(['email' => "les informations d'identification invalides"]);
         }
@@ -120,7 +124,7 @@ class UserController extends Controller
             $data = array_merge($data, ["avatar" => $url]);
         }
         $user->update($data);
-        
+
         return redirect()->route('user.show', $user->id)->with(['message' => "Profile updated successfully"]);
     }
 
