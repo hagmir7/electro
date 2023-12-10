@@ -5,33 +5,34 @@
 @section('content')
 <div class="container-sm p-3">
     <header>
-        <h1>À Propos de Notre Boutique Électronique</h1>
+        <h1>حول متجرنا الإلكتروني</h1>
     </header>
-    
+
     <main>
         <section>
-            <h2>Qui Nous Sommes</h2>
-            <p>Bienvenue sur notre boutique électronique en ligne ! Nous sommes un détaillant majeur spécialisé dans les ordinateurs portables, les téléphones, les appareils photo et autres dispositifs électroniques. Avec une vaste sélection de produits de haute qualité provenant de marques de confiance, nous nous efforçons de fournir à nos clients les technologies les plus récentes et innovantes.</p>
+            <h2>من نحن</h2>
+            <p>مرحبًا بكم في متجرنا الإلكتروني عبر الإنترنت! نحن تاجر رئيسي متخصص في الكمبيوترات المحمولة والهواتف والكاميرات وأجهزة الإلكترونيات الأخرى. مع مجموعة واسعة من المنتجات عالية الجودة من العلامات التجارية الموثوقة، نسعى جاهدين لتوفير أحدث وأكثر التقنيات الابتكارية لعملائنا.</p>
         </section>
-    
+
         <section>
-            <h2>Notre Mission</h2>
-            <p>Notre mission est de rendre la technologie accessible à tous. Nous croyons que chacun devrait avoir la possibilité de vivre la commodité et l'excitation des appareils électroniques. C'est pourquoi nous proposons une gamme diversifiée de produits à des prix compétitifs, garantissant ainsi à nos clients de trouver l'appareil parfait répondant à leurs besoins et à leur budget.</p>
+            <h2>رسالتنا</h2>
+            <p>رسالتنا هي جعل التكنولوجيا متاحة للجميع. نحن نؤمن بأنه يجب على الجميع أن يكون لديهم الفرصة للاستمتاع براحة وإثارة الأجهزة الإلكترونية. لهذا السبب، نقدم مجموعة متنوعة من المنتجات بأسعار تنافسية، مما يضمن لعملائنا العثور على الجهاز المثالي الذي يلبي احتياجاتهم وميزانيتهم.</p>
         </section>
-    
+
         <section>
-            <h2>Livraison Gratuite</h2>
-            <p>Nous comprenons l'importance de la commodité lors de vos achats en ligne. C'est pourquoi nous offrons la livraison gratuite sur toutes les commandes, vous faisant parvenir vos achats directement à votre porte. Que vous achetiez un ordinateur portable, un téléphone ou un appareil photo, vous pouvez profiter de la commodité de la livraison gratuite sans frais supplémentaires.</p>
+            <h2>توصيل مجاني</h2>
+            <p>نحن ندرك أهمية الراحة أثناء التسوق عبر الإنترنت. لهذا السبب، نقدم خدمة التوصيل المجاني على جميع الطلبات، حيث يمكننا إرسال مشترياتكم مباشرة إلى باب منزلكم. سواء كنتم تشترون كمبيوترًا محمولًا أو هاتفًا أو كاميرا، يمكنكم الاستمتاع براحة التوصيل المجاني دون أي تكاليف إضافية.</p>
         </section>
-    
+
         <section>
-            <h2>Paiement à la Livraison</h2>
-            <p>Nous proposons également l'option du paiement à la livraison pour rendre votre expérience d'achat encore plus pratique. Avec le paiement à la livraison, vous avez la flexibilité de payer votre commande lors de la livraison à votre adresse. C'est une méthode de paiement sécurisée et sans tracas qui vous permet de vérifier les produits avant de procéder au paiement.</p>
+            <h2>الدفع عند التسليم</h2>
+            <p>نقدم أيضًا خيار الدفع عند التسليم لجعل تجربة الشراء أكثر سهولة. مع الدفع عند التسليم، يمكنكم تحديد الدفع عند توصيل طلبكم إلى عنوانكم. إنها طريقة دفع آمنة وبدون أي متاعب تتيح لكم فحص المنتجات قبل إجراء الدفع.</p>
         </section>
     </main>
-    
+
     <footer>
-        <p>&copy; 2023 Électro. Tous droits réservés.</p>
+        <p>&copy; 2024 الناضور. جميع الحقوق محفوظة.</p>
     </footer>
 </div>
+
 @endsection

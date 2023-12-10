@@ -23,6 +23,7 @@ class ProductController extends Controller
         }
 
 
+
         if (Auth::check()) {
             if (!auth()->user()->cart) {
                 Cart::create([
@@ -32,6 +33,11 @@ class ProductController extends Controller
                 return redirect('/');
             }
         }
+
+
+
+
+
 
         return view('index', [
             'products' => $products,

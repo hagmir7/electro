@@ -1,37 +1,32 @@
-<div class="col-md-8">
-    @foreach ($products as $product)
-    <div class="row p-2 bg-white border rounded mt-2 wow fadeInUp" data-wow-delay="0.{{$loop->index + 1}}s">
-        <div class="col-md-3 mt-1">
-            <img class="img-fluid img-responsive rounded product-image" alt="{{ $product->name }}" src="{{ $product->images->first()->image }}">
-        </div>
-        <div class="col-md-6 mt-1">
-            <h5>{{ $product->name }}</h5>
-            <div class="d-flex flex-row">
-                <strong>{{ $product->category->name }}</strong>
+<div class="col-lg-4 col-md-6 col-6 col-sm-6 col-xs-12">
+    <div class="product">
+        <a href="{{ route('product', $id ) }}">
+            <div class="product-img">
+                <img src="{{ $image }}" alt="{{ $name }}">
             </div>
-            <p class="text-justify mb-0">{{ Str::limit($product->description, $limit = 160, $end = '...')}}</p>
-        </div>
-        <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-            <div class="align-items-center">
-                <h4 class="mr-1 mb-0">{{ $product->price }} MAD</h4> 
-                <del class="strike-text">{{$product->old_price}} MAD</del>
+        </a>
+        <div class="product-body">
+            <p class="product-category">{{ $category }}</p>
+            <h3 class="product-name"><a href="{{ route('product', $id ) }}">{{ $name }}</a></h3>
+            <h4 class="product-price">{{ $price }} درهم<del class="product-old-price"> {{ $old_price }} درهم</del></h4>
+            <div class="product-rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
             </div>
-            <h6 class="text-success">Free shipping</h6>
-            <div class="d-flex flex-column mt-4">
-                <a href="{{ route('product', $product->id ) }}" class="btn btn-primary btn-sm" type="button">Details</a>
-                <button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to wishlist</button>
+            <div>
+                @auth
+                    @if (count(\App\Models\CartDetail::where('product_id', $id )->where('cart_id', auth()->user()->cart->id )->get()) > 0)
+                    <button onclick="addToCart({{ $id }})" class="btn-primary btn btn-sm">  <span id="add-btn-{{ $id }}">Retirer du panier</span></button>
+                    @else
+                    <button onclick="addToCart({{ $id }})" class="btn-primary btn btn-sm"> <span id="add-btn-{{ $id }}"><i class="fa fa-shopping-cart"></i>  أضف للسلة</span></button>
+                    @endif
+                @else
+                <a href="{{ route('login') }}" class="btn-primary btn btn-sm"><i class="fa fa-shopping-cart"></i>  أضف للسلة</span></a>
+                @endauth
             </div>
         </div>
     </div>
-    @endforeach
 </div>
-<br>
-<div class="col-12 mt-2">
-    {{ $products->links('vendor.pagination.bootstrap-5') }}
-</div>
-
-@if (empty($products))
-<div>
-    <h3 class="text-center">No Products</h3>
-</div>
-@endif

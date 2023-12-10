@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,8 +25,7 @@
  		<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
 
  		<!-- Custom stlylesheet -->
-         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
  		<link type="text/css" rel="stylesheet" href="/assets/css/style.css"/>
 		 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
@@ -45,16 +44,16 @@
 				<!-- responsive-nav -->
 				<div id="responsive-nav">
 					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav d-block">
-						<li class="active"><a href="/">Accueil</a></li>
-						<li><a href="{{ route('category.list') }}">Catégories</a></li>
-						<li><a href="{{ route('brand.list') }}">Marques</a></li>
-						<li><a href="/contact">Contactez-nous</a></li>
-						<li><a href="/about">À propos de nous</a></li>
+					<ul class="main-nav nav navbar-nav d-block float-start">
+						<li class="active"><a href="/">الصفحة الرئسية</a></li>
+						<li><a href="{{ route('category.list') }}">الأصناف</a></li>
+						<li><a href="{{ route('brand.list') }}">ماركات</a></li>
+						<li><a href="/contact">تواصل معنا</a></li>
+						<li><a href="/about">معلومات عنا</a></li>
 						@auth
-							<li><a href="{{ route('logout') }}">Deconnexion</a></li>
+							<li><a href="{{ route('logout') }}">خروج</a></li>
 							@if (auth()->user()->role == "Admin")
-								<li><a href="/dashboard">Tableau de bord</a></li>
+								<li><a href="/dashboard">لوحة التحكم</a></li>
 							@endif
 						@endauth
 					</ul>
@@ -73,7 +72,7 @@
 					<div class="row">
 						<div class="col-md-4 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Catégories</h3>
+								<h3 class="footer-title">التصنيفات</h3>
 								<ul class="footer-links">
 									@foreach ($categories as $category)
 									<li><a href="{{ route('category', $category->id ) }}">{{ $category->name }}</a></li>
@@ -86,13 +85,13 @@
 
 						<div class="col-md-4 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">INFORMATION</h3>
+								<h3 class="footer-title">معلمات</h3>
 								<ul class="footer-links">
-									<li><a href="/">Accueil</a></li>
-									<li><a href="{{ route('category.list') }}">Catégories</a></li>
-									<li><a href="{{ route('brand.list') }}">Marques</a></li>
-									<li><a href="/contact">Contactez-nous</a></li>
-									<li><a href="/about">À propos de nous</a></li>
+									<li><a href="/">الرئسية</a></li>
+									<li><a href="{{ route('category.list') }}">أصناف</a></li>
+									<li><a href="{{ route('brand.list') }}">ماركات</a></li>
+									<li><a href="/contact">تواصل معنا</a></a></li>
+									<li><a href="/about">من نحن</a></li>
 									@auth
 									<li><a href="{{ route('logout') }}">Deconnexion</a></li>
 									@endauth
@@ -103,12 +102,14 @@
 
 						<div class="col-md-4 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">À propos de nous</h3>
-								<p>Nous sommes un détaillant majeur spécialisé dans les ordinateurs portables, les téléphones, les appareils photo et autres dispositifs électroniques. Avec une vaste sélection de produits de haute qualité provenant de marques de confiance.</p>
+								<h3 class="footer-title">من نحن</h3>
+								<p>
+                                    نحن شركة تجزئة رائدة متخصصة في أجهزة الكمبيوتر المحمولة والهواتف والكاميرات والأجهزة الإلكترونية الأخرى. مع مجموعة كبيرة من المنتجات عالية الجودة من العلامات التجارية الموثوقة.
+                                </p>
 								<ul class="footer-links">
-									<li><a href="#!"><i class="fa fa-map-marker"></i>Center Ville, Nador, Maroc</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+212 534342565</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>contact@nador.store</a></li>
+									<li><a href="#!"><i class="fa fa-map-marker me-3"></i>وسط المدينة, الناظور , المغرب</a></li>
+                                    <li class="text-end" dir="auto"><a href="tel:+212534342565"><i class="fa fa-phone"></i>+212 534342565</a></li>
+                                    <li class="text-end" dir="auto"><a href="mailto:contact@nador.store"><i class="fa fa-envelope-o"></i>contact@nador.store</a></li>
 								</ul>
 							</div>
 						</div>

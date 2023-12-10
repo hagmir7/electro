@@ -10,7 +10,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="/" class="logo">
-                            <img src="/assets/img/logo.png" alt="Electro">
+                            <img src="/assets/img/logo.svg" alt="Electro">
                         </a>
                     </div>
                 </div>
@@ -21,8 +21,8 @@
                     <div class="header-search">
                         <form class="rounded" method="GET" action="{{ route('home') }}">
                             <div class="input-group">
-                                <input name="search" class="input px-3 rounded-start-pill" placeholder="Recherche ici">
-                                <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
+                                <input name="search" class="input px-3 rounded-start-pill" placeholder="بحث...">
+                                <button type="submit" class="search-btn rounded-end-pill"><i class="bi bi-search"></i></button>
                             </div>
                         </form>
                     </div>
@@ -41,7 +41,7 @@
                         <div>
                             <a href="{{ route('login') }}">
                                 <i class="fa fa-user-o"></i>
-                                <span>Connexion</span>
+                                <span>تسجيل الدخول</span>
                             </a>
                         </div>
                     @endauth
@@ -51,7 +51,7 @@
                             <div class="dropdown">
                                 <a class="text-white" href="{{ route('cart.list') }}">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span>Votre Panier</span>
+                                    <span>سلتك</span>
                                     <div id="cart-items" class="qty">{{ auth()->user()->cart?->items->count() }}</div>
                                 </a>
                             </div>
@@ -59,7 +59,7 @@
                             <div class="dropdown">
                                 <a class="text-white" href="{{ route('cart.list') }}">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span>Votre Panier</span>
+                                    <span>سلتك</span>
                                     <div id="cart-items" class="qty">{{ auth()->user()->cart?->items->count() }}</div>
                                 </a>
                             </div>
@@ -67,10 +67,11 @@
 
 
                         @endauth
+
                         <div class="menu-toggle">
                             <a href="#">
                                 <i class="fa fa-bars"></i>
-                                <span>Menu</span>
+                                <span>القائمة</span>
                             </a>
                         </div>
                     </div>

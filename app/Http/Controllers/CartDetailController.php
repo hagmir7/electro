@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CartDetailController extends Controller
 {
-    
+
 
     public function create(Request $request){
         $user = Auth::user();
@@ -28,20 +28,20 @@ class CartDetailController extends Controller
             ]);
             return response()->json([
                 'items' => $cart->items->count(),
-                'btn' => "Ajouter au panier"
+                'btn' => "إضافة للسلة"
             ]);
         }
-        
+
         $cart = $user->cart;
         $orderDetail = CartDetail::where('product_id', $request->product)->where('cart_id', $cart->id);
         if(count($orderDetail->get()) > 0){
             $orderDetail->delete();
             return response()->json([
                 'items' => $cart->items->count(),
-                'btn' => "Ajouter au panier"
+                'btn' => "إضافة للسلة"
             ]);
         }
-        
+
         CartDetail::create([
             'cart_id' => $cart->id,
             'product_id' => $request->product,
@@ -50,9 +50,9 @@ class CartDetailController extends Controller
 
         return response()->json([
             'items' => $cart->items->count(),
-            'btn' => 'Retirer du panier'
+            'btn' => 'إزالة من السلة'
         ]);
-        
-        
+
+
     }
 }
