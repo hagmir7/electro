@@ -29,7 +29,14 @@
  		<link type="text/css" rel="stylesheet" href="/assets/css/style.css"/>
 		 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-		 <meta name="csrf-token" content="{{ csrf_token() }}">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#D10024">
 
 
 
@@ -45,17 +52,18 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav d-block float-start">
-						<li class="active"><a href="/">الصفحة الرئسية</a></li>
-						<li><a href="{{ route('category.list') }}">الأصناف</a></li>
-						<li><a href="{{ route('brand.list') }}">ماركات</a></li>
-						<li><a href="/contact">تواصل معنا</a></li>
-						<li><a href="/about">معلومات عنا</a></li>
-						@auth
+                        <li class="active"><a href="/">الرئسية</a></li>
+                        @auth
 							<li><a href="{{ route('logout') }}">خروج</a></li>
 							@if (auth()->user()->role == "Admin")
 								<li><a href="/dashboard">لوحة التحكم</a></li>
 							@endif
 						@endauth
+						<li><a href="/contact">تواصل معنا</a></li>
+						<li><a href="/about">معلومات عنا</a></li>
+						<li><a href="{{ route('brand.list') }}">ماركات</a></li>
+                        <li><a href="{{ route('category.list') }}">الأصناف</a></li>
+
 					</ul>
 				</div>
 			</div>
@@ -87,13 +95,17 @@
 							<div class="footer">
 								<h3 class="footer-title">معلمات</h3>
 								<ul class="footer-links">
-									<li><a href="/">الرئسية</a></li>
-									<li><a href="{{ route('category.list') }}">أصناف</a></li>
-									<li><a href="{{ route('brand.list') }}">ماركات</a></li>
+                                    <li><a href="/">الرئسية</a></li>
+
+
+
 									<li><a href="/contact">تواصل معنا</a></a></li>
 									<li><a href="/about">من نحن</a></li>
-									@auth
-									<li><a href="{{ route('logout') }}">Deconnexion</a></li>
+                                    <li><a href="{{ route('brand.list') }}">ماركات</a></li>
+                                    <li><a href="{{ route('category.list') }}">أصناف</a></li>
+
+                                    @auth
+									<li><a href="{{ route('logout') }}">خروج</a></li>
 									@endauth
 
 								</ul>
